@@ -1,0 +1,134 @@
+CPSC 313 Assignment 2
+
+Student Number: 39026117
+Name: Chengji Zhu
+CS ID: b6k8
+
+
+
+Question 1:
+	rmmovl rA, D(rB,4) : M4[D + 4 × R[rB]] <- R[rA]
+
+	Fetch:
+		iCode: iFun <- M1[PC]
+		rA:rB <- M1[PC+1]
+		valC <- M4[PC+2]
+		valP <- PC + 6
+		
+	Decode:
+		valA <- R[rA]
+		valB <- R[rB]
+		
+	Execute:
+		valE <- valB * 4 + valC
+		
+	Memory:
+		M[valE] <- valA
+		
+	Write-Back:
+	
+	PC Update:
+		PC <- valP
+		
+		
+	
+	mrmovl D(rB,4), rA : R[rA] <- M4[D + 4 × R[rB]]
+	
+	Fetch:
+		iCode: iFun <- M1[PC]
+		rA:rB <- M1[PC+1]
+		valC <- M4[PC+2]
+		valP <- PC + 6
+		
+	Decode: 
+		valA <- R[rA]
+		valB <- R[rB]
+		dstM <- rA
+		
+	Execute:
+		valE <- valB * 4 + valC
+	
+	Memory:
+		valM <- M4[valE]
+		
+	Write-Back:
+		R[dstM] <- valM
+		
+	PC Update:
+		PC <- valP
+
+		
+
+
+Question 2:
+	OP V rB : R[rB] <- R[rB] OP V	
+	
+	Fetch:
+		iCd:iFn <- M1[PC]
+		rA:rB <- M1[PC + 1]
+		valC <- M4[PC + 2]
+		valP <- PC + 6
+	Decode:
+		valB <- R[rB]
+		dstE <- rB
+			
+	Execute:
+		valE <- valB OP valC
+		
+	Memory:
+		
+	Write-Back:
+		R[dstE] <- valE
+		
+	PC Update: 
+		PC <- valP
+	
+Question 3:
+	call *D(rB) 
+	
+	Fetch:
+		iCd:iFn <- M1[PC]
+		rA:rB <- M1[PC + 1]
+		valC <- M4[PC + 2]
+		valP <- PC + 6
+		
+	Decode:
+		valB <- R[rB]
+		dstM <- rA
+		
+	Execute:
+		valE <- valB + valC
+		
+	Memory:
+		valM <- M4[valE]
+		
+	Write-Back:
+		R[dstM] <- valP	
+		
+	PC Update:
+		PC <- valM
+
+Test Coverage:
+1)
+	The tests provide sufficient coverage because the first test uses 
+	rmmovl %eax, 0x3000(%edx, 4)
+	which should move $100 to 0x3000 + 4 * 2 which does work since the value
+	at location 0x3008 can be seen and the register does change. Likewise, 
+	the 
+	mrmovl 0x3000(%edx, 4), %esp 
+	moves the value that was just stored back into %esp, which also works.
+	
+2)	The second test tests each one of the iOPs, the result of each operation
+	is known so it can be viewed in the register file
+3)	The final test tests the call function with 
+	call *functions(%ecx), %eax
+	this also works as it calls the function with the address at memory address
+	0x3000 + %ecx. The value of %ecx can be changed and be still seen to work. 
+	It also stores the value of the return address to %eax which is then used in 
+	the resulting function to return. Which also works.
+
+	
+
+	
+		
+		
