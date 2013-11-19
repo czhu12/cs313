@@ -75,7 +75,7 @@ int print_stats()
 	printf("Miss rate = %8.4f\n", (double) mc/ac);
     }
 }
-
+/*
 int main(){
     cache = cache_new(256, 16, 1, CACHE_REPLACEMENTPOLICY_LRU);
     fillArray(test_array);
@@ -86,19 +86,20 @@ int main(){
 		int ip2 = cache_read(cache, &test_array[5][5]);
 		print_stats();
 }
-//int main()
-//{
-//    fillArray(test_array);
-//
-//    cache = cache_new(256, 16, 1, CACHE_REPLACEMENTPOLICY_LRU);
-//    printf("Sum = %d\n", sumA(test_array));
-//    print_stats();
-//
-//    cache = cache_new(256, 16, 1, CACHE_REPLACEMENTPOLICY_LRU);
-//    printf("Sum = %d\n", sumB(test_array));
-//    print_stats();
-//
-//    cache = cache_new(256, 16, 1, CACHE_REPLACEMENTPOLICY_LRU);
-//    printf("Sum = %d\n", sumC(test_array));
-//    print_stats();
-//}
+*/
+int main()
+{
+    fillArray(test_array);
+
+    cache = cache_new(256, 16, 1, CACHE_REPLACEMENTPOLICY_LRU);
+    printf("Sum = %d\n", sumA(test_array));
+    print_stats();
+
+    cache = cache_new(256, 16, 1, CACHE_REPLACEMENTPOLICY_LRU);
+    printf("Sum = %d\n", sumB(test_array));
+    print_stats();
+
+    cache = cache_new(256, 16, 1, CACHE_REPLACEMENTPOLICY_LRU);
+    printf("Sum = %d\n", sumC(test_array));
+    print_stats();
+}

@@ -206,8 +206,10 @@ static cache_line_t *cache_set_add(cache_t *cache, cache_set_t *cache_set, intpt
 int cache_read(cache_t *cache, int *address)
 {
 		intptr_t a = address;
-		intptr_t tag = a >> (cache->tag_shift - 4);
-		int cache_index = (a & cache->cache_index_mask) >> cache->cache_index_shift;
+		intptr_t tag = a >> (cache->tag_shift);
+		//intptr_t tag = a >> (cache->tag_shift - 4);
+		int cache_index = (a >> cache->cache_index_shift) & cache->cache_index_mask;
+		//int cache_index = (a & cache->cache_index_mask) >> cache->cache_index_shift;
 		int block_offset = a & cache->block_offset_mask;
 
 
@@ -217,9 +219,6 @@ int cache_read(cache_t *cache, int *address)
 		if(!line){
 			cache->miss_count++;
 			line = cache_set_add(cache, cache_set, address, tag);
-			printf("tag: %x, cache index: %x, blockoffset: %x, address:%x MISS\n", tag, cache_index, block_offset, address);
-		}else{
-			printf("tag: %x, cache index: %x, blockoffset: %x, address:%x HIT\n", tag, cache_index, block_offset, address);
 		}
 
 		cache->access_count++;

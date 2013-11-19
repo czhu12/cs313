@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct filesystem_info {
+	int sectorSize;
+	int clusterSize;
+} filesystem_info;
+
+int main(){
+	FILE * fp;
+	filesystem_info info;
+
+	fp = fopen("fat_volume.dat", "r");
+	if(!fp){
+		printf("Fuck me");
+		return 1;
+	}
+
+	unsigned char buffer[512];
+	fread(buffer, 512, 1, fp);
+
+	while(fread(buffer, 512, 1, fp)){
+		int i;
+		for(i = 0; i < 512; i++){
+			printf("%x", buffer[i]);
+		}
+		
+	}
+	//fgets(buffer, sizeof(buffer), fp);
+	//printf("%x", buffer);
+	///while(fgets(buffer, sizeof(buffer), fp)){
+
+	///	printf("%x",(void *) buffer);
+	///}
+
+	return 0;
+}
